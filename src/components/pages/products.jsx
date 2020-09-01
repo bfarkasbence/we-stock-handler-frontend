@@ -29,9 +29,16 @@ class ProductsPage extends Component {
     }
 
     changeStock = async (product, change) => {
+        var d = new Date();
+        var dateString = d.getFullYear().toString() + "-" +
+        (d.getMonth()+1).toString().padStart(2, '0') + "-" +
+        d.getDate().toString().padStart(2, '0') + "T" + 
+        d.getHours().toString().padStart(2, '0') + ":" +
+        d.getMinutes().toString().padStart(2, '0') + ":" +
+        d.getSeconds().toString().padStart(2, '0')
         let response = await stockChangeApi.post("/", {
-          "DateTime":"2020-09-01T10:10:10",
-          "ProductId":product.id,
+          "DateTime": dateString,
+          "ProductId": product.id,
           "Quantity": change,
           "StockChangeType": "btb"  
         }).then((response) => {
@@ -39,7 +46,7 @@ class ProductsPage extends Component {
         }).catch((e)=>{
             console.log(e.message)
         });
-        this.getProducts();
+        this.getProducts();    
     }
 
 
