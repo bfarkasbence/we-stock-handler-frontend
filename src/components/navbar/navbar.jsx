@@ -23,7 +23,7 @@ class Navbar extends Component {
                             <a className="nav-link" href="/products">Készlet</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Kosár</a>
+                            <a className="nav-link" href="/cart">Kosár</a>
                         </li>
                     </ul>
                     <span className="navbar-text">

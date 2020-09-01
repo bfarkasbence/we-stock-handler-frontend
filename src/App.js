@@ -6,6 +6,7 @@ import Registration from './components/login/registration';
 import Navbar from "./components/navbar/navbar";
 import ProductsPage from './components/pages/products';
 import AddProductPage from './components/pages/addProduct';
+import CartPage from './components/pages/cart';
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
                     <Route path="/registration" component={Registration}/>
                     <Route path="/products" component={ProductsPage}/>
                     <Route path="/add-product" component={AddProductPage}/>
+                    <Route path="/cart" component={CartPage}/>
                 </Switch>
             </BrowserRouter>
             </div>
