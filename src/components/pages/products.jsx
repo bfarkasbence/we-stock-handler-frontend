@@ -6,6 +6,10 @@ const api = Axios.create({
     baseURL: "https://localhost:5001/api/product"
 })
 
+const stockChangeApi = Axios.create({
+    baseURL: "https://localhost:5001/api/stockchange"
+})
+
 class ProductsPage extends Component {
 
     state = {
@@ -22,15 +26,17 @@ class ProductsPage extends Component {
         this.setState({products: data})        
     }
 
-    addOneToProduct = async (id) => {
-        let data = await api.put(`/${id}/?Quantity=1`)
-        
-        this.getProducts();
-    }
-
-    subtractOnFromProduct = async (id) => {
-        let data = await api.put(`/${id}/?Quantity=-1`)
-        
+    changeStock = async (product, change) => {
+        let response = await stockChangeApi.post("/", {
+          "DateTime":"2020-09-01T10:10:10",
+          "ProductId":product.id,
+          "Quantity": change,
+          "StockChangeType": "btb"  
+        }).then((response) => {
+            console.log(response);
+        }).catch((e)=>{
+            console.log(e.message)
+        });
         this.getProducts();
     }
 
@@ -67,10 +73,10 @@ class ProductsPage extends Component {
                                     <td>{product.quantity}</td>
                                     <td>
                                         <div class="btn-group btn-group-xs" role="group">
-                                            <button class="btn btn-default" onClick={() => this.addOneToProduct(product.id)}>
+                                            <button class="btn btn-default" onClick={() => this.changeStock(product, 1)}>
                                                 <i class="fa fa-plus"></i>
-                                            </button>    
-                                            <button class="btn btn-default" onClick={() => this.subtractOnFromProduct(product.id)}>
+                                            </button>
+                                            <button class="btn btn-default" onClick={() => this.changeStock(product, -1)}>
                                                 <i class="fa fa-minus"></i>
                                             </button>
                                             
