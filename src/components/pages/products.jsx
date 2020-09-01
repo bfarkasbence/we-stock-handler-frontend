@@ -10,6 +10,8 @@ const stockChangeApi = Axios.create({
     baseURL: "https://localhost:5001/api/stockchange"
 })
 
+
+
 class ProductsPage extends Component {
 
     state = {
@@ -68,7 +70,7 @@ class ProductsPage extends Component {
                                     <td>{product.name}</td>
                                     <td>{product.cartonCode}</td>
                                     <td>{product.price} Ft</td>
-                                    <td>{product.fromDate}-{product.toDate}</td>
+                                    <td>{product.fromDate} - {product.toDate}</td>
                                     <td>{product.requiredQuatity}</td>
                                     <td>{product.quantity}</td>
                                     <td>
@@ -79,7 +81,6 @@ class ProductsPage extends Component {
                                             <button class="btn btn-default" onClick={() => this.changeStock(product, -1)}>
                                                 <i class="fa fa-minus"></i>
                                             </button>
-                                            
                                         </div>
                                         </td>
                                 </tr>)}

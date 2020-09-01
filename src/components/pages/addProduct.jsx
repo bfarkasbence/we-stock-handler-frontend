@@ -95,11 +95,11 @@ class AddProductPage extends Component {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="fromDate">Dátumtól</label>
-                                <input type="datetime-local" className="form-control" id="fromDate"  onChange={this.fromDateOnChange} value={this.state.fromDate}/>
+                                <input type="date" className="form-control" id="fromDate"  onChange={this.fromDateOnChange} value={this.state.fromDate}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="toDate">Dátumig</label>
-                                <input type="datetime-local" className="form-control" id="toDate" onChange={this.toDateOnChange} value={this.state.toDate}/>
+                                <input type="date" className="form-control" id="toDate" onChange={this.toDateOnChange} value={this.state.toDate}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="requiredQuantity">Szükséges mennyiség</label>
