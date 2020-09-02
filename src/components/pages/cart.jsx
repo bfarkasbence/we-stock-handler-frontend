@@ -15,6 +15,7 @@ class CartPage extends Component {
     state = {
         products: [],
         cart: [],
+        sumPrice: 0,
         
     }
     
@@ -34,6 +35,7 @@ class CartPage extends Component {
         var inTheCart = false;
 
         const newItem = {productId: product.id, productName: product.name, productPrice: product.price, quantity: 1};
+        this.setState({sumPrice: this.state.sumPrice + product.price});
     
         for (var i=0; i<this.state.cart.length; i++)
         {
@@ -42,6 +44,7 @@ class CartPage extends Component {
                 let newCart = [...this.state.cart];
                 newCart[i] = {...newCart[i], quantity: newCart[i].quantity+1}
                 this.setState({cart: newCart});
+                
                 inTheCart = true;
             }
         }
@@ -121,7 +124,7 @@ class CartPage extends Component {
                                 </table>
                             </div>
                             <div className="card-footer">
-                                Összesen 
+                                Összesen {this.state.sumPrice} Ft
                             </div>
                         </div>
                     </div>
