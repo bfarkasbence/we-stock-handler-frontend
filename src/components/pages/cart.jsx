@@ -56,6 +56,22 @@ class CartPage extends Component {
         
     }
 
+    changeCartQuantity(item, change)
+    {   
+        for (var i=0; i<this.state.cart.length; i++)
+        {
+            if (this.state.cart[i].productId === item.productId)
+            {
+                let newCart = [...this.state.cart];
+                newCart[i] = {...newCart[i], quantity: (newCart[i].quantity+change)}
+                this.setState({cart: newCart});
+                this.setState({sumPrice: this.state.sumPrice + (change * item.productPrice)});
+            }
+        }
+
+        this.setState({sumPrice: this.state.sumPrice + (change * item.productPrice)});
+    }
+
     render(){
         return (
             <div className="container"style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
@@ -117,7 +133,14 @@ class CartPage extends Component {
                                             <td>{item.productName}</td>
                                             <td>{item.productPrice} Ft</td>
                                             <td>{item.quantity}</td>
-                                            <td></td>
+                                            <td><div className="btn-group btn-group-xs" role="group">
+                                            <button className="btn btn-default" onClick={() => this.changeCartQuantity(item, 1)}>
+                                                <i className="fa fa-plus"></i>
+                                            </button>
+                                            <button className="btn btn-default" onClick={() => this.changeCartQuantity(item, -1)}>
+                                                <i className="fa fa-minus"></i>
+                                            </button>
+                                        </div></td>
                                         </tr>
                                         )}
                                     </tbody>
