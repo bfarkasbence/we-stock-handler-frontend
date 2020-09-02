@@ -92,6 +92,10 @@ class CartPage extends Component {
             headers:{ 'Content-Type': 'application/json' } })
         .then((response) => {
             console.log(response);
+            this.setState({cart: []});
+            this.setState({sumPrice: 0});
+            this.getProducts();
+
         })
         .catch((e) =>{console.log(e.message);
         })
