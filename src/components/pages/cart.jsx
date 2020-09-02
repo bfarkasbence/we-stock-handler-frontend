@@ -63,7 +63,16 @@ class CartPage extends Component {
             if (this.state.cart[i].productId === item.productId)
             {
                 let newCart = [...this.state.cart];
-                newCart[i] = {...newCart[i], quantity: (newCart[i].quantity+change)}
+
+                if (newCart[i].quantity+change === 0)
+                {
+                    newCart.splice(i, 1);
+                }
+                else
+                {
+                    newCart[i] = {...newCart[i], quantity: (newCart[i].quantity+change)}
+                }
+                
                 this.setState({cart: newCart});
                 this.setState({sumPrice: this.state.sumPrice + (change * item.productPrice)});
             }
