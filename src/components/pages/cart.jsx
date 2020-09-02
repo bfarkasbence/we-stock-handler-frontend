@@ -72,13 +72,29 @@ class CartPage extends Component {
                 {
                     newCart[i] = {...newCart[i], quantity: (newCart[i].quantity+change)}
                 }
-                
+
                 this.setState({cart: newCart});
                 this.setState({sumPrice: this.state.sumPrice + (change * item.productPrice)});
             }
         }
 
         this.setState({sumPrice: this.state.sumPrice + (change * item.productPrice)});
+    }
+
+
+    buyCart = async () =>  
+    {
+        let cartString = JSON.stringify(this.state.cart);
+        let url = "https://localhost:5001/api/stockchange/cart"
+
+        fetch(url, { method: 'POST',
+            body: cartString,
+            headers:{ 'Content-Type': 'application/json' } })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((e) =>{console.log(e.message);
+        })
     }
 
     render(){
@@ -157,6 +173,7 @@ class CartPage extends Component {
                             </div>
                             <div className="card-footer">
                                 Összesen {this.state.sumPrice} Ft
+                                <button className="btn btn btn-dark" onClick={() => this.buyCart()}>Elküld</button>
                             </div>
                         </div>
                     </div>
