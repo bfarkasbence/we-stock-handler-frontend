@@ -64,7 +64,6 @@ function ProductsPage() {
                                     <th scope="col">Termék neve</th>
                                     <th scope="col">Karton kód</th>
                                     <th scope="col">Eladási ár</th>
-                                    <th scope="col">Időszak</th>
                                     <th scope="col">Szükséges készlet</th>
                                     <th scope="col">Készlet</th>
                                     <th scope="col"></th>
@@ -76,7 +75,6 @@ function ProductsPage() {
                                     <td>{product.name}</td>
                                     <td>{product.cartonCode}</td>
                                     <td>{product.price} Ft</td>
-                                    <td>{product.fromDate} - {product.toDate}</td>
                                     <td>{product.requiredQuatity}</td>
                                     <td>{product.quantity}</td>
                                     <td>

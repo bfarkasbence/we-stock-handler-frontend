@@ -15,8 +15,6 @@ function AddProductPage(props) {
     const [name, setName] = useState("");
     const [cartonCode, setCartonCode] = useState(0);
     const [price, setPrice] = useState(0);
-    const [fromDate, setFromDate] = useState("");
-    const [toDate, setToDate] = useState("");
     const [requiredQuantity, setRequiredQuantity] = useState(0);
 
     const history = useHistory();
@@ -37,14 +35,6 @@ function AddProductPage(props) {
         setPrice(event.target.value)
     };
 
-    const fromDateOnChange = (event) => {
-        setFromDate(event.target.value)
-    };
-
-    const toDateOnChange = (event) => {
-        setToDate(event.target.value)
-    };
-
    const requiredQuantityOnChange = (event) => {
         setRequiredQuantity(event.target.value)
     };
@@ -57,10 +47,8 @@ function AddProductPage(props) {
             "Name": name,
             "CartonCode": parseInt(cartonCode),
             "Price": parseInt(price),
-            "RequiredQuatity": parseInt(requiredQuantity),
+            "RequiredQuantity": parseInt(requiredQuantity),
             "Quantity": 0,
-            "FromDate":fromDate.toString(),
-            "ToDate": toDate.toString()
         })
         history.goBack();
         console.log(response);
@@ -92,14 +80,6 @@ function AddProductPage(props) {
                             <div className="form-group">
                                 <label htmlFor="price">Ár</label>
                                 <input type="number" className="form-control" id="price" onChange={priceOnChange} value={price}/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="fromDate">Dátumtól</label>
-                                <input type="date" className="form-control" id="fromDate"  onChange={fromDateOnChange} value={fromDate}/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="toDate">Dátumig</label>
-                                <input type="date" className="form-control" id="toDate" onChange={toDateOnChange} value={toDate}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="requiredQuantity">Szükséges mennyiség</label>
