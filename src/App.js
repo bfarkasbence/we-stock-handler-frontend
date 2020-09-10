@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import './App.css';
 import Login from './components/login/login';
@@ -8,8 +8,7 @@ import ProductsPage from './components/pages/products';
 import AddProductPage from './components/pages/addProduct';
 import CartPage from './components/pages/cart';
 
-class App extends Component {
-  render() {
+function App() {
     return (
       <div>
         <Navbar/>
@@ -26,7 +25,7 @@ class App extends Component {
             </div>
       </div>
     );
-  }
+  
 }
 
 export default App;

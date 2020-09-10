@@ -1,49 +1,45 @@
-import React, {Component} from "react";
+import React from "react";
 import Axios from "axios";
 import 'font-awesome/css/font-awesome.min.css';
+import { useState } from "react";
+import { useEffect } from "react";
 
-const api = Axios.create({
-    baseURL: "https://localhost:5001/api/product"
-})
 
-const stockChangeApi = Axios.create({
-    baseURL: "https://localhost:5001/api/stockchange"
-})
+function CartPage() {
 
-class CartPage extends Component {
-
-    state = {
-        products: [],
-        cart: [],
-        sumPrice: 0,
-        
-    }
+    const [products,setProducts] = useState([]);
+    const [cart,setCart] = useState([]);
+    const [sumPrice,setSumPrice] = useState(0);
     
-    constructor() {
-        super();
-        this.getProducts();
-        
-    }
+    useEffect(() => {
+        Axios.get("https://localhost:5001/api/product").then(response => {setProducts(response.data)});
+    }, [setProducts])
 
-    getProducts = async () => {
+    const api = Axios.create({
+        baseURL: "https://localhost:5001/api/product"
+    })
+    
+
+    const getProducts = async () => {
         let data = await api.get("/").then(({data}) => data);
-        this.setState({products: data})        
+        setProducts(data);       
     }
 
-    addToCart(product)
+    const addToCart = (product) =>
     {
         var inTheCart = false;
 
         const newItem = {productId: product.id, productName: product.name, productPrice: product.price, quantity: 1};
-        this.setState({sumPrice: this.state.sumPrice + product.price});
+
+        setSumPrice(sumPrice + product.price);
     
-        for (var i=0; i<this.state.cart.length; i++)
+        for (var i=0; i<cart.length; i++)
         {
-            if (this.state.cart[i].productId === product.id)
+            if (cart[i].productId === product.id)
             {
-                let newCart = [...this.state.cart];
+                let newCart = [...cart];
                 newCart[i] = {...newCart[i], quantity: newCart[i].quantity+1}
-                this.setState({cart: newCart});
+                setCart(newCart);
                 
                 inTheCart = true;
             }
@@ -51,18 +47,18 @@ class CartPage extends Component {
 
         if (!inTheCart)
         {
-            this.setState({ cart: this.state.cart.concat(newItem)});
+            setCart(cart.concat(newItem));
         }
         
     }
 
-    changeCartQuantity(item, change)
+    const changeCartQuantity = (item, change) =>
     {   
-        for (var i=0; i<this.state.cart.length; i++)
+        for (var i=0; i<cart.length; i++)
         {
-            if (this.state.cart[i].productId === item.productId)
+            if (cart[i].productId === item.productId)
             {
-                let newCart = [...this.state.cart];
+                let newCart = [...cart];
 
                 if (newCart[i].quantity+change === 0)
                 {
@@ -72,19 +68,19 @@ class CartPage extends Component {
                 {
                     newCart[i] = {...newCart[i], quantity: (newCart[i].quantity+change)}
                 }
-
-                this.setState({cart: newCart});
-                this.setState({sumPrice: this.state.sumPrice + (change * item.productPrice)});
+                setCart(newCart);
+                setSumPrice(sumPrice+(change*item.productPrice));
+                
             }
         }
 
-        this.setState({sumPrice: this.state.sumPrice + (change * item.productPrice)});
+        setSumPrice(sumPrice+(change*item.productPrice));
     }
 
 
-    buyCart = async () =>  
+   const buyCart = async () =>  
     {
-        let cartString = JSON.stringify(this.state.cart);
+        let cartString = JSON.stringify(cart);
         let url = "https://localhost:5001/api/stockchange/cart"
 
         fetch(url, { method: 'POST',
@@ -92,16 +88,17 @@ class CartPage extends Component {
             headers:{ 'Content-Type': 'application/json' } })
         .then((response) => {
             console.log(response);
-            this.setState({cart: []});
-            this.setState({sumPrice: 0});
-            this.getProducts();
+            
+            setCart([]);
+            setSumPrice(0);
+            getProducts();
 
         })
         .catch((e) =>{console.log(e.message);
         })
     }
 
-    render(){
+    
         return (
             <div className="container"style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
                 <div className="row">
@@ -122,14 +119,14 @@ class CartPage extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {this.state.products.map(product => <tr key={product.id}>
+                                    {products.map(product => <tr key={product.id}>
                                             <td>{product.productCode}</td>
                                             <td>{product.name}</td>
                                             <td>{product.price} Ft</td>
                                             <td>{product.quantity}</td>
                                             <td>
                                                 <div className="btn-group btn-group-xs" role="group">
-                                                    <button className="btn btn-default" onClick={() => this.addToCart(product)}>
+                                                    <button className="btn btn-default" onClick={() => addToCart(product)}>
                                                         <i className="fa fa-cart-plus"></i>
                                                     </button>
                                                 </div>
@@ -157,16 +154,16 @@ class CartPage extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {this.state.cart.map(item => 
+                                        {cart.map(item => 
                                         <tr key={item.productId}>
                                             <td>{item.productName}</td>
                                             <td>{item.productPrice} Ft</td>
                                             <td>{item.quantity}</td>
                                             <td><div className="btn-group btn-group-xs" role="group">
-                                            <button className="btn btn-default" onClick={() => this.changeCartQuantity(item, 1)}>
+                                            <button className="btn btn-default" onClick={() => changeCartQuantity(item, 1)}>
                                                 <i className="fa fa-plus"></i>
                                             </button>
-                                            <button className="btn btn-default" onClick={() => this.changeCartQuantity(item, -1)}>
+                                            <button className="btn btn-default" onClick={() => changeCartQuantity(item, -1)}>
                                                 <i className="fa fa-minus"></i>
                                             </button>
                                         </div></td>
@@ -176,15 +173,15 @@ class CartPage extends Component {
                                 </table>
                             </div>
                             <div className="card-footer">
-                                Összesen {this.state.sumPrice} Ft
-                                <button className="btn btn btn-dark" onClick={() => this.buyCart()}>Elküld</button>
+                                Összesen {sumPrice} Ft
+                                <button className="btn btn btn-dark" onClick={() => buyCart()}>Elküld</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         )
-    }
+    
 }
 
 export default CartPage;

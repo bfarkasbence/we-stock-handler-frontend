@@ -1,68 +1,68 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 
-class Registration extends Component{
+function Registration() {
 
-    state = {
-        username : "",
-        password : "",
-        email : ""
-    }
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
 
-    usernameOnChange = (event) => {
-        this.setState({username: event.target.value})
-    }
+    const usernameOnChange = (event) => {
+        setUsername(event.target.value)
+    };
 
-    passwordOnChange = (event) => {
-        this.setState({password:event.target.value})
-    }
+    const passwordOnChange = (event) => {
+        setPassword(event.target.value)
+    };
 
-    emailOnChange = (event) => {
-        this.setState({email: event.target.value})
-    }
+    const emailOnChange = (event) => {
+        setEmail(event.target.value)
+    };
 
-    registration = () => {
-        axios.post("https://localhost:5001/api/account", {
-            username : this.state.username,
-            password : this.state.password,
-            email : this.state.email
-        }).then((response) => {
+    const registration = async () => {
+
+        try{
+            let response = await axios.post("https://localhost:5001/api/account", {
+                username : username,
+                password: password,
+                email: email
+            })
             console.log(response);
-        }).catch((e)=>{
-            console.log(e.message);
-        })
-    }
+        } catch (error) {
+            console.log(error);
+        }
+        
+    };
 
-    render(){
-        return(
-            <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "28rem"}}>
-                <div className="card">
-                    <div className="card-body">
-                        <form>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">Email cím</label>
-                                <input type="email" className="form-control" id="exampleInputEmail1"
-                                       aria-describedby="emailHelp" onChange={this.emailOnChange} value={this.state.email}/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputPassword1">Felhasználónév</label>
-                                <input type="text" className="form-control" id="exampleInputUsername" onChange={this.usernameOnChange} value={this.state.username}/>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputPassword1">Jelszó</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" onChange={this.passwordOnChange} value={this.state.password}/>
-                            </div>
-                            <div className="form-group form-check">
-                                <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                                <label className="form-check-label" htmlFor="exampleCheck1">Elolvastam a <a href="/#">használati feltételeket</a>!</label>
-                            </div>
-                            <button type="button" className="btn btn-dark" onClick={this.registration}>Regisztráció</button>
-                        </form>
-                    </div>
+
+    return(
+        <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "28rem"}}>
+            <div className="card">
+                <div className="card-body">
+                    <form>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputEmail1">Email cím</label>
+                            <input type="email" className="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" onChange={emailOnChange} value={email}/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputPassword1">Felhasználónév</label>
+                            <input type="text" className="form-control" id="exampleInputUsername" onChange={usernameOnChange} value={username}/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputPassword1">Jelszó</label>
+                            <input type="password" className="form-control" id="exampleInputPassword1" onChange={passwordOnChange} value={password}/>
+                        </div>
+                        <div className="form-group form-check">
+                            <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+                            <label className="form-check-label" htmlFor="exampleCheck1">Elolvastam a <a href="/#">használati feltételeket</a>!</label>
+                        </div>
+                        <button type="button" className="btn btn-dark" onClick={registration}>Regisztráció</button>
+                    </form>
                 </div>
             </div>
+        </div>
 
-        )
-    }
+    )
 }
 export default Registration;

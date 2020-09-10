@@ -1,34 +1,33 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import Axios from "axios";
 import 'font-awesome/css/font-awesome.min.css';
-
-const api = Axios.create({
-    baseURL: "https://localhost:5001/api/product"
-})
-
-const stockChangeApi = Axios.create({
-    baseURL: "https://localhost:5001/api/stockchange"
-})
+import { useEffect } from "react";
 
 
 
-class ProductsPage extends Component {
 
-    state = {
-        products: []
-    }
+function ProductsPage() {
+
+    const [products,setProducts] = useState([]);
+
+    useEffect(() => {
+        Axios.get("https://localhost:5001/api/product").then(response => {setProducts(response.data)});
+    }, [setProducts])
     
-    constructor() {
-        super();
-        this.getProducts();
-    }
+    const api = Axios.create({
+        baseURL: "https://localhost:5001/api/product"
+    })
     
-    getProducts = async () => {
+    const stockChangeApi = Axios.create({
+        baseURL: "https://localhost:5001/api/stockchange"
+    })
+    
+    const getProducts = async () => {
         let data = await api.get("/").then(({data}) => data);
-        this.setState({products: data})        
+        setProducts(data);
     }
 
-    changeStock = async (product, change) => {
+    const changeStock = async (product, change) => {
         var d = new Date();
         var dateString = d.getFullYear().toString() + "-" +
         (d.getMonth()+1).toString().padStart(2, '0') + "-" +
@@ -36,30 +35,30 @@ class ProductsPage extends Component {
         d.getHours().toString().padStart(2, '0') + ":" +
         d.getMinutes().toString().padStart(2, '0') + ":" +
         d.getSeconds().toString().padStart(2, '0')
-        let response = await stockChangeApi.post("/", {
-          "DateTime": dateString,
-          "ProductId": product.id,
-          "Quantity": change,
-          "StockChangeType": "btb"  
-        }).then((response) => {
-            console.log(response);
-        }).catch((e)=>{
-            console.log(e.message)
-        });
-        this.getProducts();    
+        
+        try {
+            let response = await stockChangeApi.post("/", {
+                "DateTime": dateString,
+                "ProductId": product.id,
+                "Quantity": change,
+                "StockChangeType": "btb"  
+              })
+            console.log(response)
+        } catch (error) {
+            console.log(error);
+        }
+        getProducts();    
     }
 
-
-    render(){
         return (
             <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
                 <div className="card">
                     <div className="card-header">
-                        <h4>Termékek</h4> <a class="btn btn-default" href='/add-product'>+</a>
+                        <h4>Termékek</h4> <a className="btn btn-default" href='/add-product'>+</a>
                     </div>
                     <div className="card-body">                        
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead class="thead-dark">
+                        <table className="table table-striped table-bordered table-hover">
+                            <thead className="thead-dark">
                                 <tr>
                                     <th scope="col">Kód</th>
                                     <th scope="col">Termék neve</th>
@@ -72,7 +71,7 @@ class ProductsPage extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                            {this.state.products.map(product => <tr key={product.id}>
+                            {products.map(product => <tr key={product.id}>
                                     <td>{product.productCode}</td>
                                     <td>{product.name}</td>
                                     <td>{product.cartonCode}</td>
@@ -81,12 +80,12 @@ class ProductsPage extends Component {
                                     <td>{product.requiredQuatity}</td>
                                     <td>{product.quantity}</td>
                                     <td>
-                                        <div class="btn-group btn-group-xs" role="group">
-                                            <button class="btn btn-default" onClick={() => this.changeStock(product, 1)}>
-                                                <i class="fa fa-plus"></i>
+                                        <div className="btn-group btn-group-xs" role="group">
+                                            <button className="btn btn-default" onClick={() => changeStock(product, 1)}>
+                                                <i className="fa fa-plus"></i>
                                             </button>
-                                            <button class="btn btn-default" onClick={() => this.changeStock(product, -1)}>
-                                                <i class="fa fa-minus"></i>
+                                            <button className="btn btn-default" onClick={() => changeStock(product, -1)}>
+                                                <i className="fa fa-minus"></i>
                                             </button>
                                         </div>
                                         </td>
@@ -98,7 +97,7 @@ class ProductsPage extends Component {
                 </div>
             </div>
         )
-    }
+    
 }
 
 export default ProductsPage;
