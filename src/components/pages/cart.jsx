@@ -99,89 +99,89 @@ function CartPage() {
     }
 
     
-        return (
-            <div className="container"style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
-                <div className="row">
-                    <div className="col-sm">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Termékek</h4>
-                            </div>
-                            <div className="card-body">                        
-                                <table className="table table-striped table-bordered table-hover">
-                                    <thead className="thead-dark">
-                                        <tr>
-                                            <th scope="col">Kód</th>
-                                            <th scope="col">Termék neve</th>
-                                            <th scope="col">Ár</th>
-                                            <th scope="col">Készlet</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {products.map(product => <tr key={product.id}>
-                                            <td>{product.productCode}</td>
-                                            <td>{product.name}</td>
-                                            <td>{product.price} Ft</td>
-                                            <td>{product.quantity}</td>
-                                            <td>
-                                                <div className="btn-group btn-group-xs" role="group">
-                                                    <button className="btn btn-default" onClick={() => addToCart(product)}>
-                                                        <i className="fa fa-cart-plus"></i>
-                                                    </button>
-                                                </div>
-                                        </td>
-                                        </tr>)}
-                                    </tbody>
-                                </table>
-                            </div>
+    return (
+        <div className="container"style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
+            <div className="row">
+                <div className="col-sm">
+                    <div className="card">
+                        <div className="card-header">
+                            <h4>Termékek</h4>
+                        </div>
+                        <div className="card-body">                        
+                            <table className="table table-striped table-bordered table-hover">
+                                <thead className="thead-dark">
+                                    <tr>
+                                        <th scope="col">Kód</th>
+                                        <th scope="col">Termék neve</th>
+                                        <th scope="col">Ár</th>
+                                        <th scope="col">Készlet</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {products.map(product => <tr key={product.id}>
+                                        <td>{product.productCode}</td>
+                                        <td>{product.name}</td>
+                                        <td>{product.price} Ft</td>
+                                        <td>{product.quantity}</td>
+                                        <td>
+                                            <div className="btn-group btn-group-xs" role="group">
+                                                <button className="btn btn-default" onClick={() => addToCart(product)}>
+                                                    <i className="fa fa-cart-plus"></i>
+                                                </button>
+                                            </div>
+                                    </td>
+                                    </tr>)}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div className="col-sm">
-                        <div className="card">
-                            <div className="card-header">
-                                <h4>Kosár</h4>
-                            </div>
-                            <div className="card-body">
-                            
-                                <table className="table table-borderless table-hover">
-                                     <thead className="thead-dark">
-                                        <tr>
-                                            <th scope="col">Termék neve</th>
-                                            <th scope="col">Ár</th>
-                                            <th scope="col">Db</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {cart.map(item => 
-                                        <tr key={item.productId}>
-                                            <td>{item.productName}</td>
-                                            <td>{item.productPrice} Ft</td>
-                                            <td>{item.quantity}</td>
-                                            <td><div className="btn-group btn-group-xs" role="group">
-                                            <button className="btn btn-default" onClick={() => changeCartQuantity(item, 1)}>
-                                                <i className="fa fa-plus"></i>
-                                            </button>
-                                            <button className="btn btn-default" onClick={() => changeCartQuantity(item, -1)}>
-                                                <i className="fa fa-minus"></i>
-                                            </button>
-                                        </div></td>
-                                        </tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="card-footer">
-                                Összesen {sumPrice} Ft
-                                <button className="btn btn btn-dark" onClick={() => buyCart()}>Elküld</button>
-                            </div>
+                </div>
+                <div className="col-sm">
+                    <div className="card">
+                        <div className="card-header">
+                            <h4>Kosár</h4>
+                        </div>
+                        <div className="card-body">
+                        
+                            <table className="table table-borderless table-hover">
+                                <thead className="thead-dark">
+                                    <tr>
+                                        <th scope="col">Termék neve</th>
+                                        <th scope="col">Ár</th>
+                                        <th scope="col">Db</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {cart.map(item => 
+                                    <tr key={item.productId}>
+                                        <td>{item.productName}</td>
+                                        <td>{item.productPrice} Ft</td>
+                                        <td>{item.quantity}</td>
+                                        <td><div className="btn-group btn-group-xs" role="group">
+                                        <button className="btn btn-default" onClick={() => changeCartQuantity(item, 1)}>
+                                            <i className="fa fa-plus"></i>
+                                        </button>
+                                        <button className="btn btn-default" onClick={() => changeCartQuantity(item, -1)}>
+                                            <i className="fa fa-minus"></i>
+                                        </button>
+                                    </div></td>
+                                    </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="card-footer">
+                            Összesen {sumPrice} Ft
+                            <button className="btn btn btn-dark" onClick={() => buyCart()}>Elküld</button>
                         </div>
                     </div>
                 </div>
             </div>
-        )
-    
+        </div>
+    )
+
 }
 
 export default CartPage;

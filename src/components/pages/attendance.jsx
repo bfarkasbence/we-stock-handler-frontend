@@ -13,10 +13,6 @@ function AttendancePage() {
         .then(response => {setConsultants(response.data)});
     }, [setConsultants])
 
-    const api = Axios.create({
-        baseURL: "https://localhost:5001/api/attendance"
-    })
-
     const addToAttendance = (consultant) => {
         setAttendance(attendance.concat(consultant));
         
@@ -44,6 +40,24 @@ function AttendancePage() {
         }
     }
 
+    const saveAttendance = async () => {
+        let attendanceString = JSON.stringify(attendance);
+        let url = "https://localhost:5001/api/attendance"
+
+        fetch(url, {method: 'POST',
+        body: attendanceString,
+        headers:{ 'Content-Type': 'application/json'}})
+        .then((response) => {
+            console.log(response);
+
+            setAttendance([]);
+            setConsultants([]);
+        })
+        .catch((e) =>{console.log(e.message);
+        })
+
+    }
+
     return(
         <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
             <div className="card">
@@ -62,15 +76,11 @@ function AttendancePage() {
                                 </td>
                             </tr>
                             )}
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button className="btn btn-dark">Mentés</button>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
+                    <div className="card-footer">
+                        <button className="btn btn-dark" onClick={() => saveAttendance()}>Mentés</button>
+                    </div>
                 </div>
             </div>
             <div className="card">

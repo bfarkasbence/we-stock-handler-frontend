@@ -75,7 +75,7 @@ function ProductsPage() {
                                     <td>{product.name}</td>
                                     <td>{product.cartonCode}</td>
                                     <td>{product.price} Ft</td>
-                                    <td>{product.requiredQuatity}</td>
+                                    <td>{product.requiredQuantity}</td>
                                     <td>{product.quantity}</td>
                                     <td>
                                         <div className="btn-group btn-group-xs" role="group">
