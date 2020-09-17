@@ -6,7 +6,23 @@ import { useEffect } from "react";
 function AttendancePage() {
 
     const[consultants, setConsultants] = useState([]);
-    const[attendance, setAttendance] = useState([]);
+    const [attendance, setAttendance] = useState([]);
+    const[newAttendance, setNewAttendance] = useState([]);
+
+    useEffect(() => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy + mm + dd;
+        
+        Axios.get("https://localhost:5001/api/attendance/date", {params: {
+            from: today,
+            to: today
+        }}).then(response => {setAttendance(response.data)});
+
+    }, [setAttendance])
 
     useEffect(() => {
         Axios.get("https://localhost:5001/api/consultant")
@@ -14,7 +30,7 @@ function AttendancePage() {
     }, [setConsultants])
 
     const addToAttendance = (consultant) => {
-        setAttendance(attendance.concat(consultant));
+        setNewAttendance(newAttendance.concat(consultant));
         
         for (var i=0; i<consultants.length; i++)
         {
@@ -29,19 +45,19 @@ function AttendancePage() {
 
     const removeFromAttendance = (consultant) => {
         setConsultants(consultants.concat(consultant));
-        for (var i=0; i<attendance.length; i++)
+        for (var i=0; i<newAttendance.length; i++)
         {
-            if (attendance[i].id === consultant.id)
+            if (newAttendance[i].id === consultant.id)
             {
-                let newAttendance = [...attendance];
-                newAttendance.splice(i, 1);
-                setAttendance(newAttendance);
+                let addAttendance = [...newAttendance];
+                addAttendance.splice(i, 1);
+                setNewAttendance(addAttendance);
             }
         }
     }
 
     const saveAttendance = async () => {
-        let attendanceString = JSON.stringify(attendance);
+        let attendanceString = JSON.stringify(newAttendance);
         let url = "https://localhost:5001/api/attendance"
 
         fetch(url, {method: 'POST',
@@ -50,7 +66,7 @@ function AttendancePage() {
         .then((response) => {
             console.log(response);
 
-            setAttendance([]);
+            setNewAttendance([]);
             setConsultants([]);
         })
         .catch((e) =>{console.log(e.message);
@@ -61,13 +77,28 @@ function AttendancePage() {
     return(
         <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
             <div className="card">
-                <div className="card-header">
+            <div className="card-header">
                     <h4>Jelenlét</h4>
                 </div>
                 <div className="card-body">
                     <table className="table table-hover">
                         <tbody>
                         {attendance.map(consultant =>
+                            <tr key={consultant.id}>
+                                <td>{consultant.consultantId}</td>
+                                <td>{consultant.consultantName}</td>
+                            </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="card-header">
+                    <h4>Jelenlét</h4>
+                </div>
+                <div className="card-body">
+                    <table className="table table-hover">
+                        <tbody>
+                        {newAttendance.map(consultant =>
                             <tr key={consultant.id}>
                                 <td>{consultant.consultantId}</td>
                                 <td>{consultant.name}</td>

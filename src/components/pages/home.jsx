@@ -56,7 +56,7 @@ function HomePage(props) {
                 <table className="table table-bordered table-hover">
                     <tbody>
                         {attendance.map(consultant => <tr key={consultant.id}>
-                            <td>{consultant.consulantName}</td>
+                            <td>{consultant.consultantName}</td>
                         </tr>)}
                     </tbody>
                 </table>
