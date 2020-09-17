@@ -43,8 +43,6 @@ function HomePage(props) {
     useEffect(() => {
         Axios.get("https://localhost:5001/api/stockchange/sum").then(response => {setSumSold(response.data)})
     }, [setSumSold])
-    
-
 
     return(
     <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "128 rem"}}>

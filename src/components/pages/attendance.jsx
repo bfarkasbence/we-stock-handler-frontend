@@ -29,7 +29,7 @@ function AttendancePage() {
         .then(response => {setConsultants(response.data)});
     }, [setConsultants])
 
-    const addToAttendance = (consultant) => {
+    const addToNewAttendance = (consultant) => {
         setNewAttendance(newAttendance.concat(consultant));
         
         for (var i=0; i<consultants.length; i++)
@@ -43,7 +43,7 @@ function AttendancePage() {
         }
     }
 
-    const removeFromAttendance = (consultant) => {
+    const removeFromNewAttendance = (consultant) => {
         setConsultants(consultants.concat(consultant));
         for (var i=0; i<newAttendance.length; i++)
         {
@@ -56,7 +56,7 @@ function AttendancePage() {
         }
     }
 
-    const saveAttendance = async () => {
+    const saveNewAttendance = async () => {
         let attendanceString = JSON.stringify(newAttendance);
         let url = "https://localhost:5001/api/attendance"
 
@@ -111,7 +111,7 @@ function AttendancePage() {
                                 <td>{consultant.consultantId}</td>
                                 <td>{consultant.name}</td>
                                 <td>
-                                    <button className="btn btn-default" onClick={() => removeFromAttendance(consultant)}>-</button>
+                                    <button className="btn btn-default" onClick={() => removeFromNewAttendance(consultant)}>-</button>
                                 </td>
                             </tr>
                             )}
@@ -119,7 +119,7 @@ function AttendancePage() {
                     </table>
                 </div>
                 <div className="card-footer">
-                        <button className="btn btn-dark" onClick={() => saveAttendance()}>Mentés</button>
+                        <button className="btn btn-dark" onClick={() => saveNewAttendance()}>Mentés</button>
                     </div>
             </div>
             <div className="card">
@@ -141,7 +141,7 @@ function AttendancePage() {
                                     <td>{consultant.consultantId}</td> 
                                     <td>{consultant.name}</td>
                                     <td>
-                                        <button className="btn btn-default" onClick={() => addToAttendance(consultant)}>+</button>
+                                        <button className="btn btn-default" onClick={() => addToNewAttendance(consultant)}>+</button>
                                     </td>
                                 </tr>
                             )}
