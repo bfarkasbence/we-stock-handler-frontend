@@ -8,6 +8,7 @@ import ProductsPage from './components/pages/products';
 import AddProductPage from './components/pages/addProduct';
 import CartPage from './components/pages/cart';
 import AttendancePage from './components/pages/attendance';
+import HomePage from './components/pages/home';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/add-product" component={AddProductPage}/>
                     <Route path="/cart" component={CartPage}/>
                     <Route path="/attendance" component={AttendancePage}/>
+                    <Route path="/" component={HomePage}/>
                 </Switch>
             </BrowserRouter>
             </div>
