@@ -8,6 +8,7 @@ function HomePage(props) {
 
     const [attendance, setAttendance] = useState([]);
     const [soldProducts, setSoldProducts] = useState([]);
+    const [sumSold, setSumSold] = useState(0);
     
 
     useEffect(() => {
@@ -39,6 +40,12 @@ function HomePage(props) {
         }}).then(response => {setSoldProducts(response.data)})
     }, [setSoldProducts])
 
+    useEffect(() => {
+        Axios.get("https://localhost:5001/api/stockchange/sum").then(response => {setSumSold(response.data)})
+    }, [setSumSold])
+    
+
+
     return(
     <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "128 rem"}}>
         <div className="card">
@@ -60,7 +67,7 @@ function HomePage(props) {
                 <h4>Napi egyenleg</h4>
             </div>
             <div className="card-body">
-                Eladás: xxxxx Ft
+                Eladás: {sumSold} Ft
             </div>
         </div>
         <div className="card">
