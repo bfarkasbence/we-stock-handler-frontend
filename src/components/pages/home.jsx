@@ -51,11 +51,19 @@ function HomePage(props) {
         <div className="card">
             <div className="card-header">
                 <h4>Jelenlét</h4>
+                <a className="btn btn-dark" href='/attendance'>Szerkeszt</a>
             </div>
             <div className="card-body">
                 <table className="table table-bordered table-hover">
+                    <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Tanácsadószám</th>
+                                <th scope="col">Név</th>
+                            </tr>
+                    </thead>
                     <tbody>
                         {attendance.map(consultant => <tr key={consultant.id}>
+                            <td>{consultant.consultantId}</td>
                             <td>{consultant.consultantName}</td>
                         </tr>)}
                     </tbody>

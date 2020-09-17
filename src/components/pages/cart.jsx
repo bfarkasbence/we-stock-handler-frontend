@@ -174,7 +174,7 @@ function CartPage() {
                         </div>
                         <div className="card-footer">
                             Összesen {sumPrice} Ft
-                            <button className="btn btn btn-dark" onClick={() => buyCart()}>Elküld</button>
+                            <button className="btn btn-dark" onClick={() => buyCart()}>Elküld</button>
                         </div>
                     </div>
                 </div>

@@ -54,7 +54,8 @@ function ProductsPage() {
             <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
                 <div className="card">
                     <div className="card-header">
-                        <h4>Termékek</h4> <a className="btn btn-default" href='/add-product'>+</a>
+                        <h4>Termékek</h4>
+                        <a className="btn btn-dark" href='/add-product'>+</a>
                     </div>
                     <div className="card-body">                        
                         <table className="table table-striped table-bordered table-hover">

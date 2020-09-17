@@ -77,11 +77,17 @@ function AttendancePage() {
     return(
         <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
             <div className="card">
-            <div className="card-header">
-                    <h4>Jelenlét</h4>
+                <div className="card-header">
+                        <h4>Jelenlét</h4>
                 </div>
                 <div className="card-body">
                     <table className="table table-hover">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Tanácsadószám</th>
+                                <th scope="col">Név</th>
+                            </tr>
+                        </thead>
                         <tbody>
                         {attendance.map(consultant =>
                             <tr key={consultant.id}>
@@ -92,8 +98,10 @@ function AttendancePage() {
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div className="card">
                 <div className="card-header">
-                    <h4>Jelenlét</h4>
+                    <h4>Új jelenlét</h4>
                 </div>
                 <div className="card-body">
                     <table className="table table-hover">
@@ -109,10 +117,10 @@ function AttendancePage() {
                             )}
                         </tbody>
                     </table>
-                    <div className="card-footer">
+                </div>
+                <div className="card-footer">
                         <button className="btn btn-dark" onClick={() => saveAttendance()}>Mentés</button>
                     </div>
-                </div>
             </div>
             <div className="card">
                 <div className="card-header">
@@ -120,6 +128,13 @@ function AttendancePage() {
                 </div>
                 <div className="card-body">
                     <table className="table table-hover">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Tanácsadószám</th>
+                                <th scope="col">Név</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
                         <tbody>
                             {consultants.map(consultant => 
                                 <tr key={consultant.id}>
