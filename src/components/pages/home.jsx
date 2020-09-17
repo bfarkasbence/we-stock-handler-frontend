@@ -56,7 +56,7 @@ function HomePage(props) {
                 <table className="table table-bordered table-hover">
                     <tbody>
                         {attendance.map(consultant => <tr key={consultant.id}>
-                            <td>{consultant.consultantId}</td>
+                            <td>{consultant.consulantName}</td>
                         </tr>)}
                     </tbody>
                 </table>
@@ -78,13 +78,15 @@ function HomePage(props) {
                 <table className="table table-bordered table-hover">
                     <thead className="thead-dark">
                         <tr>
+                            <th scope="col">Kód</th>
                             <th scope="col">Termék neve</th>
                             <th scope="col">Darabszám</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {soldProducts.map(product => <tr key={product.id}>
-                            <td>{product.productId}</td>
+                        {soldProducts.map(product => <tr key={product.productId}>
+                            <td>{product.productCode}</td>
+                            <td>{product.productName}</td>
                             <td>{product.quantity}</td>
                         </tr>)}
                     </tbody>
