@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
 
-function Login(){
+function Login(props) {
     
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
