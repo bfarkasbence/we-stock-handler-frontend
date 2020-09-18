@@ -5,9 +5,9 @@ import { useEffect } from "react";
 
 function AttendancePage() {
 
-    const[consultants, setConsultants] = useState([]);
+    const [consultants, setConsultants] = useState([]);
     const [attendance, setAttendance] = useState([]);
-    const[newAttendance, setNewAttendance] = useState([]);
+    const [newAttendance, setNewAttendance] = useState([]);
 
     useEffect(() => {
         var today = new Date();
@@ -29,6 +29,26 @@ function AttendancePage() {
         .then(response => {setConsultants(response.data)});
 
     }, [setConsultants])
+
+    const getConsultants = async () => {
+        let data = await Axios.get("https://localhost:5001/api/consultant/today").then(({data}) => data);
+        setConsultants(data);
+    }
+
+    const getAttendance = async () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy + mm + dd;
+
+        let data = await Axios.get("https://localhost:5001/api/attendance/date", {params: {
+            from: today,
+            to: today
+        }}).then(({data}) => data);
+        setAttendance(data);
+    }
 
     const addToNewAttendance = (consultant) => {
         setNewAttendance(newAttendance.concat(consultant));
@@ -68,6 +88,8 @@ function AttendancePage() {
             console.log(response);
 
             setNewAttendance([]);
+            getConsultants();
+            getAttendance();
 
         })
         .catch((e) =>{console.log(e.message);
