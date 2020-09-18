@@ -25,8 +25,9 @@ function AttendancePage() {
     }, [setAttendance])
 
     useEffect(() => {
-        Axios.get("https://localhost:5001/api/consultant")
+        Axios.get("https://localhost:5001/api/consultant/today")
         .then(response => {setConsultants(response.data)});
+
     }, [setConsultants])
 
     const addToNewAttendance = (consultant) => {
@@ -67,7 +68,7 @@ function AttendancePage() {
             console.log(response);
 
             setNewAttendance([]);
-            setConsultants([]);
+
         })
         .catch((e) =>{console.log(e.message);
         })
