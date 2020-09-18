@@ -73,7 +73,7 @@ function HomePage(props) {
                 <h4>Napi egyenleg</h4>
             </div>
             <div className="card-body">
-                Eladás: {sumSold} Ft
+                <h1>{sumSold} Ft</h1>
             </div>
         </div>
         <div className="card">
