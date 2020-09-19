@@ -3,12 +3,12 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect } from "react";
 import Axios from "axios";
-import ProductsPage from "./products";
+
 
 function StornoPage(props) {
     
     const [date, setDate] = useState(new Date());
-    const [soldProducts, setSoldProducts] = useState([]);
+    const [soldProductsOnDate, setSoldProductsOnDate] = useState([]);
     
 
     useEffect(() => {
@@ -20,6 +20,10 @@ function StornoPage(props) {
         today = yyyy + '-' + mm + '-' + dd;
         setDate(today);
     }, [setDate])
+
+    useEffect(() => {
+        Axios.get("https://localhost:5001/api/stockchange").then(response => {setSoldProductsOnDate(response.data)});
+    }, [setSoldProductsOnDate])
 
 
     const dateOnChange = (event) => {
@@ -36,7 +40,7 @@ function StornoPage(props) {
                 <div className="card-body">
                     <p>Válassz dátumot:</p>
                     <p><input type="date" onChange={dateOnChange} value={date}/></p>
-                    <p><button className="btn btn-dark" onClick={() => console.log(date)}>Küldés</button></p>
+                    <p><button className="btn btn-dark" onClick={() => console.log(soldProductsOnDate)}>Küldés</button></p>
                 </div>
             </div>
             <div className="card">
@@ -55,17 +59,17 @@ function StornoPage(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {soldProducts.map(product => <tr key={product}>
-                                <td>{product}</td>
-                                <td>{product}</td>
-                                <td>{product}</td>
-                                <td>{product}</td>
-                                <td>
-                                    <button>
-                                        <i className="fa fa-cart-plus"></i>
-                                    </button>
-                                </td>
-                            </tr>)}
+                        {soldProductsOnDate.map(soldProduct => <tr key={soldProduct.id}>
+                            <td>{soldProduct.productId}</td>
+                            <td>{soldProduct.productName}</td>
+                            <td>{soldProduct.price}</td>
+                            <td>{soldProduct.quantity}</td>
+                            <td>
+                                <button className="btn btn-dark">
+                                    <i className="fa fa-cart-plus"></i>
+                                </button>
+                            </td>
+                        </tr>)}
                         </tbody>
                     </table>
                 </div>
