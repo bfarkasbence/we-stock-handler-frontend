@@ -118,7 +118,33 @@ function StornoPage(props) {
                     <h4>Sztornózandó tételek</h4>
                 </div>
                 <div className="card-body">
-                    sztornó tételek listája
+                    <table className="table table-striped table-hover">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Kód</th>
+                                <th scope="col">Termék neve</th>
+                                <th scope="col">Darab</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {stornoCart.map(item => <tr key={item.productId}>
+                            <td>{item.productId}</td>
+                            <td>{item.productName}</td>
+                            <td>{item.quantity}</td>
+                            <td>
+                                <div className="btn-group btn-group-xs" role="group">
+                                    <button className="btn btn-default">
+                                        <i className="fa fa-plus"></i>
+                                    </button>
+                                    <button className="btn btn-default">
+                                        <i className="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            </tr>)}
+                        </tbody>
+                    </table>
                 </div>
                 <div className="card-footer">
                     <button className="btn btn-dark" onClick={() => console.log(soldProductsOnDate)}>Küldés</button>
