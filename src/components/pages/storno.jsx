@@ -35,12 +35,14 @@ function StornoPage(props) {
         <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "128 rem"}}>
             <div className="card">
                 <div className="card-header">
-                    <h4>Sztornó</h4>
+                    <h4>Eladás dátuma</h4>
                 </div>
                 <div className="card-body">
                     <p>Válassz dátumot:</p>
                     <p><input type="date" onChange={dateOnChange} value={date}/></p>
-                    <p><button className="btn btn-dark" onClick={() => console.log(soldProductsOnDate)}>Küldés</button></p>
+                </div>
+                <div className="card-footer">
+                    <button className="btn btn-dark" onClick={() => console.log(date)}>Küldés</button>
                 </div>
             </div>
             <div className="card">
@@ -72,6 +74,17 @@ function StornoPage(props) {
                         </tr>)}
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div className="card">
+                <div className="card-header">
+                    <h4>Sztornózandó tételek</h4>
+                </div>
+                <div className="card-body">
+                    sztornó tételek listája
+                </div>
+                <div className="card-footer">
+                    <button className="btn btn-dark" onClick={() => console.log(soldProductsOnDate)}>Küldés</button>
                 </div>
             </div>
         </div>
