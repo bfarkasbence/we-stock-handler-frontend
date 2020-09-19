@@ -9,27 +9,40 @@ function StornoPage(props) {
     
     const [date, setDate] = useState(new Date());
     const [soldProductsOnDate, setSoldProductsOnDate] = useState([]);
+    const [stornoCart, setStornoCart] = useState([]);
     
+    const api = Axios.create({
+        baseURL: "https://localhost:5001/api"
+    })
 
     useEffect(() => {
-        var today = new Date();
-        var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = today.getFullYear();
-
-        today = yyyy + '-' + mm + '-' + dd;
-        setDate(today);
+        setDate(new Date());
     }, [setDate])
-
-    useEffect(() => {
-        Axios.get("https://localhost:5001/api/stockchange").then(response => {setSoldProductsOnDate(response.data)});
-    }, [setSoldProductsOnDate])
 
 
     const dateOnChange = (event) => {
-        setDate(event.target.value)
+        var dateString = event.target.value;
+        var dateList = dateString.split("-");
+        var newDate = new Date(dateList[0], dateList[1], dateList[2]);
+        
+        setDate(newDate);
     };
 
+    const getSoldProductsOnDate = async () => {
+            var dd = String(date.getDate()).padStart(2, '0');
+            var mm = String(date.getMonth()).padStart(2, '0');
+            var yyyy = date.getFullYear();
+
+            var today = yyyy + mm + dd;
+        
+        let data = await api.get("/stockchange/date", {
+            params: {
+                from: today,
+                to: today
+            }
+        }).then(({data}) => data);
+        setSoldProductsOnDate(data);
+    }
 
     return(
         <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "128 rem"}}>
@@ -39,10 +52,10 @@ function StornoPage(props) {
                 </div>
                 <div className="card-body">
                     <p>Válassz dátumot:</p>
-                    <p><input type="date" onChange={dateOnChange} value={date}/></p>
+                    <p><input type="date" onChange={dateOnChange}/></p>
                 </div>
                 <div className="card-footer">
-                    <button className="btn btn-dark" onClick={() => console.log(date)}>Küldés</button>
+                    <button className="btn btn-dark" onClick={() => getSoldProductsOnDate()}>Küldés</button>
                 </div>
             </div>
             <div className="card">
@@ -61,7 +74,7 @@ function StornoPage(props) {
                             </tr>
                         </thead>
                         <tbody>
-                        {soldProductsOnDate.map(soldProduct => <tr key={soldProduct.id}>
+                        {soldProductsOnDate.map(soldProduct => <tr key={soldProduct.productId}>
                             <td>{soldProduct.productId}</td>
                             <td>{soldProduct.productName}</td>
                             <td>{soldProduct.price}</td>
