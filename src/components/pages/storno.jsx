@@ -3,10 +3,12 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect } from "react";
 import Axios from "axios";
+import ProductsPage from "./products";
 
 function StornoPage(props) {
     
     const [date, setDate] = useState(new Date());
+    const [soldProducts, setSoldProducts] = useState([]);
     
 
     useEffect(() => {
@@ -53,7 +55,17 @@ function StornoPage(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            {soldProducts.map(product => <tr key={product}>
+                                <td>{product}</td>
+                                <td>{product}</td>
+                                <td>{product}</td>
+                                <td>{product}</td>
+                                <td>
+                                    <button>
+                                        <i className="fa fa-cart-plus"></i>
+                                    </button>
+                                </td>
+                            </tr>)}
                         </tbody>
                     </table>
                 </div>
