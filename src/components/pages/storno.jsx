@@ -37,6 +37,27 @@ function StornoPage(props) {
                     <p><button className="btn btn-dark" onClick={() => console.log(date)}>Küldés</button></p>
                 </div>
             </div>
+            <div className="card">
+                <div className="card-header">
+                    <h4>Eladott termékek</h4>
+                </div>
+                <div className="card-body">
+                    <table className="table table-striped table-hover">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Kód</th>
+                                <th scope="col">Termék neve</th>
+                                <th scope="col">Eladási ár</th>
+                                <th scope="col">Darab</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }
