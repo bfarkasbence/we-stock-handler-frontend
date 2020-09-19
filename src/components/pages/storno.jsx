@@ -44,6 +44,30 @@ function StornoPage(props) {
         setSoldProductsOnDate(data);
     }
 
+    const addToCart = (product) => 
+    {
+        var inTheCart = false;
+
+        const newItem = {productId: product.productId, productName: product.productName, productPrice: product.productPrice, quantity: 1};
+
+        for (var i=0; i<stornoCart.length; i++)
+        {
+            if (stornoCart[i].productId === product.productId)
+            {
+                let newCart = [...stornoCart];
+                newCart[i] = {...newCart[i], quantity: newCart[i].quantity+1}
+                setStornoCart(newCart);
+
+                inTheCart = true;
+            }
+        }
+
+        if (!inTheCart)
+        {
+            setStornoCart(stornoCart.concat(newItem));
+        }
+    }
+
     return(
         <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "128 rem"}}>
             <div className="card">
@@ -80,7 +104,7 @@ function StornoPage(props) {
                             <td>{soldProduct.productPrice} Ft</td>
                             <td>{soldProduct.quantity}</td>
                             <td>
-                                <button className="btn btn-dark">
+                                <button className="btn btn-dark" onClick={() => addToCart(soldProduct)}>
                                     <i className="fa fa-cart-plus"></i>
                                 </button>
                             </td>
