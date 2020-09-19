@@ -77,7 +77,7 @@ function StornoPage(props) {
                         {soldProductsOnDate.map(soldProduct => <tr key={soldProduct.productId}>
                             <td>{soldProduct.productId}</td>
                             <td>{soldProduct.productName}</td>
-                            <td>{soldProduct.price}</td>
+                            <td>{soldProduct.productPrice} Ft</td>
                             <td>{soldProduct.quantity}</td>
                             <td>
                                 <button className="btn btn-dark">
