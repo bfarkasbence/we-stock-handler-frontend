@@ -20,6 +20,9 @@ function Navbar() {
                     <li className="nav-item">
                         <a className="nav-link" href="/cart">Kosár</a>
                     </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/storno">Sztornó</a>
+                    </li>
                 </ul>
                 <span className="navbar-text">
                 <a href="/login">Bejelentkezés</a>

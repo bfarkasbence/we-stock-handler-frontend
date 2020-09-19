@@ -9,6 +9,7 @@ import AddProductPage from './components/pages/addProduct';
 import CartPage from './components/pages/cart';
 import AttendancePage from './components/pages/attendance';
 import HomePage from './components/pages/home';
+import StornoPage from './components/pages/storno';
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/add-product" component={AddProductPage}/>
                     <Route path="/cart" component={CartPage}/>
                     <Route path="/attendance" component={AttendancePage}/>
+                    <Route path="/storno" component={StornoPage}/>
                     <Route path="/" component={HomePage}/>
                 </Switch>
             </BrowserRouter>
