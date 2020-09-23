@@ -68,6 +68,27 @@ function StornoPage(props) {
         }
     }
 
+    const changeStornoCartQuantity = (item, change) => 
+    {
+        for (var i=0; i< stornoCart.length; i++)
+        {
+            if (stornoCart[i].productId === item.productId)
+            {
+                let newCart = [...stornoCart];
+                
+                if (newCart[i].quantity+change === 0)
+                {
+                    newCart.splice(i, 1);
+                }
+                else 
+                {
+                    newCart[i] = {...newCart[i], quantity: (newCart[i].quantity+change)}
+                }
+                setStornoCart(newCart);
+            }
+        }
+    }
+
     return(
         <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "128 rem"}}>
             <div className="card">
@@ -134,10 +155,10 @@ function StornoPage(props) {
                             <td>{item.quantity}</td>
                             <td>
                                 <div className="btn-group btn-group-xs" role="group">
-                                    <button className="btn btn-default">
+                                    <button className="btn btn-default" onClick={() => changeStornoCartQuantity(item, 1)}>
                                         <i className="fa fa-plus"></i>
                                     </button>
-                                    <button className="btn btn-default">
+                                    <button className="btn btn-default" onClick={() => changeStornoCartQuantity(item, -1)}>
                                         <i className="fa fa-minus"></i>
                                     </button>
                                 </div>
