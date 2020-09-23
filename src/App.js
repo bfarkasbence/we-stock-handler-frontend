@@ -21,12 +21,12 @@ function App() {
                 <Switch>
                     <Route path="/login" component={Login}/>
                     <Route path="/registration" component={Registration}/>
+                    <Route path="/products/fillup" component={ProductsToFillUp}/>
                     <Route path="/products" component={ProductsPage}/>
                     <Route path="/add-product" component={AddProductPage}/>
                     <Route path="/cart" component={CartPage}/>
                     <Route path="/attendance" component={AttendancePage}/>
                     <Route path="/storno" component={StornoPage}/>
-                    <Route path="/productsfillup" component={ProductsToFillUp}/>
                     <Route path="/" component={HomePage}/>
                 </Switch>
             </BrowserRouter>
