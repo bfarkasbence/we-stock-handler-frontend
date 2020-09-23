@@ -9,9 +9,7 @@ function ProductsToFillUp() {
     useEffect(() => {
         Axios.get("https://localhost:5001/api/product/fillup")
             .then(response => {setProducts(response.data);
-            console.log(response.data)});
-
-    }, [setProducts])
+            });}, [setProducts])
 
 
     return (
