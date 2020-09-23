@@ -89,6 +89,23 @@ function StornoPage(props) {
         }
     }
 
+    const saveCart = async () =>
+    {
+        let stronoCartString = JSON.stringify(stornoCart);
+        let url = "https://localhost:5001/api/stockchange/storno"
+
+        fetch(url, { method: 'POST',
+            body: stronoCartString,
+            headers: { 'Content-Type': 'application/json'}})
+        .then((response) => {
+            console.log(response);
+
+            setStornoCart([]);
+            getSoldProductsOnDate();
+        })
+        .catch((e) => console.log(e.message));
+    }
+
     return(
         <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "128 rem"}}>
             <div className="card">
@@ -168,7 +185,7 @@ function StornoPage(props) {
                     </table>
                 </div>
                 <div className="card-footer">
-                    <button className="btn btn-dark" onClick={() => console.log(soldProductsOnDate)}>Küldés</button>
+                    <button className="btn btn-dark" onClick={() => saveCart()}>Küldés</button>
                 </div>
             </div>
         </div>
