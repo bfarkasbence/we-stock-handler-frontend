@@ -10,6 +10,7 @@ import CartPage from './components/pages/cart';
 import AttendancePage from './components/pages/attendance';
 import HomePage from './components/pages/home';
 import StornoPage from './components/pages/storno';
+import ProductsToFillUp from './components/pages/productsToFillUp';
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/cart" component={CartPage}/>
                     <Route path="/attendance" component={AttendancePage}/>
                     <Route path="/storno" component={StornoPage}/>
+                    <Route path="/products-to-fill-up" component={ProductsToFillUp}/>
                     <Route path="/" component={HomePage}/>
                 </Switch>
             </BrowserRouter>
