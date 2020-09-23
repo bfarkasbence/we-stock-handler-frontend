@@ -11,6 +11,7 @@ import AttendancePage from './components/pages/attendance';
 import HomePage from './components/pages/home';
 import StornoPage from './components/pages/storno';
 import ProductsToFillUp from './components/pages/productsToFillUp';
+import ProductsStockAdditionPage from './components/pages/productsStockAddition';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/login" component={Login}/>
                     <Route path="/registration" component={Registration}/>
                     <Route path="/products/fillup" component={ProductsToFillUp}/>
+                    <Route path="/products/stockaddition" component={ProductsStockAdditionPage}/>
                     <Route path="/products" component={ProductsPage}/>
                     <Route path="/add-product" component={AddProductPage}/>
                     <Route path="/cart" component={CartPage}/>
