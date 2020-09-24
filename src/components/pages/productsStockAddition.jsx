@@ -1,6 +1,17 @@
 import React from "react";
+import Axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function ProductsStockAdditionPage() {
+
+    const [recievedProducts, setRecievedProducts] = useState([]);
+
+    useEffect(() => {
+        Axios.get("https://localhost:5001/api/btbsentproducts/sent")
+        .then(response => {setRecievedProducts(response.data); console.log(response.data)});
+        
+    }, [setRecievedProducts])
 
     return (
         <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
@@ -20,11 +31,12 @@ function ProductsStockAdditionPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>A11</td>
-                                <td>Dummy termék</td>
-                                <td>8</td>
-                                <td>8</td>
+                        {recievedProducts.map(product =>
+                            <tr key={product.productId}>
+                                <td>{product.productCode}</td>
+                                <td>{product.productName}</td>
+                                <td>{product.sentQuantity}</td>
+                                <td>{product.recievedQuantity}</td>
                                 <td>
                                     <div className="btn-group btn-group-xs">
                                         <button className="btn btn-default">
@@ -35,7 +47,7 @@ function ProductsStockAdditionPage() {
                                         </button>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr>)}
                         </tbody>
                     </table>
                 </div>
