@@ -13,6 +13,28 @@ function ProductsStockAdditionPage() {
         
     }, [setRecievedProducts])
 
+    const changeQuantity = (item, change) => 
+    {
+        for (var i=0; i<recievedProducts.length; i++)
+        {
+            if (recievedProducts[i].productId === item.productId)
+            {
+                let newRecievedProducts = [...recievedProducts];
+
+                if (newRecievedProducts[i].recievedQuantity+change < 0)
+                {
+                    newRecievedProducts[i] = {...newRecievedProducts[i], recievedQuantity: (0)}
+                }
+                else
+                {
+                    newRecievedProducts[i] = {...newRecievedProducts[i], recievedQuantity: (newRecievedProducts[i].recievedQuantity+change)}
+                }
+                setRecievedProducts(newRecievedProducts);
+                
+            }
+        }
+    }
+
     return (
         <div className="container" style={{marginLeft: "auto", marginRight: "auto", marginTop: "5%", width: "100%"}}>
             <div className="card">
@@ -39,10 +61,10 @@ function ProductsStockAdditionPage() {
                                 <td>{product.recievedQuantity}</td>
                                 <td>
                                     <div className="btn-group btn-group-xs">
-                                        <button className="btn btn-default">
+                                        <button className="btn btn-default" onClick={() => changeQuantity(product, 1)}>
                                             <i className="fa fa-plus"></i>
                                         </button>
-                                        <button className="btn btn-default">
+                                        <button className="btn btn-default" onClick={() => changeQuantity(product, -1)}>
                                             <i className="fa fa-minus"></i>
                                         </button>
                                     </div>
