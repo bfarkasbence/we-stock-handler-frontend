@@ -6,6 +6,10 @@ function ProductsToFillUp() {
 
     const [products, setProducts] = useState([]);
 
+    const api = Axios.create({
+        baseURL: "https://localhost:5001/api"
+    })
+
     useEffect(() => {
         Axios.get("https://localhost:5001/api/product/fillup")
             .then(response => {setProducts(response.data);
@@ -34,6 +38,11 @@ function ProductsToFillUp() {
         }
     }
 
+    const getProducts = async () => {
+        let data = await api.get("/product/fillup").then(({data}) => data);
+        setProducts(data);
+    }
+
     const sendProducts = async () =>
     {
         let stringToSendProducts = JSON.stringify(products);
@@ -44,7 +53,7 @@ function ProductsToFillUp() {
             headers: { 'Content-Type': 'application/json'}})
         .then((response) => {
             console.log(response);
-            setProducts([]);
+            getProducts();
         })
         .catch((e) => console.log(e.message));
     }
