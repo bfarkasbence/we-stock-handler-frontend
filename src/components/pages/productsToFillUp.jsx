@@ -37,7 +37,7 @@ function ProductsToFillUp() {
     const sendProducts = async () =>
     {
         let stringToSendProducts = JSON.stringify(products);
-        let url = "https://localhost:5001/api/btbstentproducts"
+        let url = "https://localhost:5001/api/btbsentproducts"
 
         fetch(url, { method: 'POST',
             body: stringToSendProducts,
